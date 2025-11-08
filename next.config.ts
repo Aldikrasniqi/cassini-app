@@ -17,6 +17,30 @@ const withPWA = withPWAInit({
 		clientsClaim: true,
 		// Ignore precaching errors for development
 		ignoreURLParametersMatching: [/.*/],
+		// Exclude files that shouldn't be precached
+		exclude: [
+			/\.map$/,
+			/manifest$/,
+			/^manifest$/,
+			/\.DS_Store$/,
+			({ asset, compilation }) => {
+				if (
+					asset.name.startsWith('server/') ||
+					asset.name.match(
+						/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+					)
+				) {
+					return true
+				}
+				if (
+					process.env.NODE_ENV === 'development' &&
+					!asset.name.startsWith('static/runtime/')
+				) {
+					return true
+				}
+				return false
+			},
+		],
 		// Add runtime caching fallback for navigation
 		runtimeCaching: [
 			{
