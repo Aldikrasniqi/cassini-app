@@ -6,8 +6,8 @@ const withPWA = withPWAInit({
 	cacheOnFrontEndNav: true,
 	aggressiveFrontEndNavCaching: true,
 	reloadOnOnline: true,
-	// Enable PWA in development for testing offline mode
-	disable: false,
+	// Disable PWA only in development, enable in production
+	disable: process.env.NODE_ENV === 'development',
 	// Custom service worker
 	sw: 'sw-custom.js',
 	workboxOptions: {
@@ -51,39 +51,7 @@ const nextConfig: NextConfig = {
 	/* config options here */
 	// Add empty turbopack config to silence the warning
 	turbopack: {},
-	allowedDevOrigins: [
-		'local-origin.dev',
-		'*.local-origin.dev',
-		'http://10.21.236.45:3000',
-		'https://10.21.236.45:3000',
-	],
-	// Enable CORS for mobile testing
-	async headers() {
-		return [
-			{
-				// Apply CORS headers to all routes
-				source: '/(.*)',
-				headers: [
-					{
-						key: 'Access-Control-Allow-Origin',
-						value: '*', // Allow all origins for development
-					},
-					{
-						key: 'Access-Control-Allow-Methods',
-						value: 'GET, POST, PUT, DELETE, OPTIONS',
-					},
-					{
-						key: 'Access-Control-Allow-Headers',
-						value: 'Content-Type, Authorization, X-Requested-With',
-					},
-					{
-						key: 'Access-Control-Allow-Credentials',
-						value: 'true',
-					},
-				],
-			},
-		]
-	},
+	allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
 }
 
 export default withPWA(nextConfig)
