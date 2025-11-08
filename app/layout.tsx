@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { Script } from 'next'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -62,3 +63,26 @@ export default function RootLayout({
 		</html>
 	)
 }
+
+;<Script
+	id="register-sw"
+	strategy="afterInteractive"
+	dangerouslySetInnerHTML={{
+		__html: `
+      if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/sw-custom.js', { scope: '/' })
+            .then((registration) => {
+              console.log('✅ SW registered:', registration.scope);
+              // Check for updates
+              registration.update();
+            })
+            .catch((error) => {
+              console.error('❌ SW registration failed:', error);
+            });
+        });
+      }
+    `,
+	}}
+/>
