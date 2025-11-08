@@ -8,8 +8,12 @@ const withPWA = withPWAInit({
 	reloadOnOnline: true,
 	// Disable PWA only in development, enable in production
 	disable: process.env.NODE_ENV === 'development',
-	// Custom service worker
-	sw: 'sw-custom.js',
+	// Use default service worker name
+	sw: 'sw.js',
+	// Set fallback for offline
+	fallbacks: {
+		document: '/offline',
+	},
 	workboxOptions: {
 		disableDevLogs: true,
 		// Don't fail on precaching errors
