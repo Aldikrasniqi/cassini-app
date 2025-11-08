@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { Script } from 'next'
+import Script from 'next/script'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -59,30 +59,27 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				{children}
+				<Script
+					id="register-sw"
+					strategy="afterInteractive"
+					dangerouslySetInnerHTML={{
+						__html: `
+                            if ('serviceWorker' in navigator) {
+                                window.addEventListener('load', function() {
+                                    navigator.serviceWorker
+                                        .register('/sw.js')
+                                        .then(function(registration) {
+                                            console.log('✅ Service Worker registered with scope:', registration.scope);
+                                        })
+                                        .catch(function(error) {
+                                            console.error('❌ Service Worker registration failed:', error);
+                                        });
+                                });
+                            }
+                        `,
+					}}
+				/>
 			</body>
 		</html>
 	)
 }
-
-;<Script
-	id="register-sw"
-	strategy="afterInteractive"
-	dangerouslySetInnerHTML={{
-		__html: `
-      if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('/sw-custom.js', { scope: '/' })
-            .then((registration) => {
-              console.log('✅ SW registered:', registration.scope);
-              // Check for updates
-              registration.update();
-            })
-            .catch((error) => {
-              console.error('❌ SW registration failed:', error);
-            });
-        });
-      }
-    `,
-	}}
-/>
