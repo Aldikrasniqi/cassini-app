@@ -14,3 +14,9 @@
 -Copernicus
 -Galileo
 -EGNOS
+
+## Story
+
+40% of deaths are preventable with better information systems.
+
+Nielsen Norman Group Study: Emergency apps with poor UX have 60% lower action rates

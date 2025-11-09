@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import Script from 'next/script'
 
 const geistSans = Geist({
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 	formatDetection: {
 		telephone: false,
 	},
-	manifest: '/manifest.webmanifest',
+	manifest: '/manifest.json',
 	icons: {
 		icon: [
 			{ url: '/icons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
