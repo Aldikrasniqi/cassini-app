@@ -592,12 +592,6 @@ This project is currently in active development. Contributions are welcome, part
 
 ---
 
-## License
-
-[Specify your license here]
-
----
-
 ## Acknowledgments
 
 - **European Space Agency (ESA)** — For satellite data and mission information
