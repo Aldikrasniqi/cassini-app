@@ -8,7 +8,6 @@ import { TimelineInterface } from './pages/TimelineInterface'
 import { HealthScoreInterface } from './pages/HealthScoreInterface'
 import { GhostRouteInterface } from './pages/GhostRouteInterface'
 
-// Import Lucide icons
 import {
 	HeartPulse,
 	SatelliteDish,
@@ -22,7 +21,7 @@ type TabId = 'heartbeat' | 'satellite' | 'timeline' | 'health' | 'ghost'
 interface Tab {
 	id: TabId
 	label: string
-	icon: React.ElementType
+	icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
 	component: React.ComponentType
 }
 
@@ -119,18 +118,6 @@ export const TabNavigation = () => {
 											)}
 										/>
 									</div>
-
-									{/* Tab label with improved typography */}
-									{/* <span
-										className={cn(
-											'text-[10px] font-medium text-center leading-tight transition-all duration-300',
-											isActive
-												? 'text-blue-600 font-semibold'
-												: 'text-slate-500'
-										)}
-									>
-										{tab.label}
-									</span> */}
 								</button>
 							)
 						})}
